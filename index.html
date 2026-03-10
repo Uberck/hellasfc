@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Hellas FC - Homepage</title>
+    <link rel="stylesheet" href="resources/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="topbar">
+        <div class="socials">
+          <a href="https://www.facebook.com" aria-label="Hellas FC on Facebook">Fb</a>
+          <a href="https://www.instagram.com" aria-label="Hellas FC on Instagram">Ig</a>
+          <a href="https://www.x.com" aria-label="Hellas FC on X">X</a>
+        </div>
+        <div class="logo">
+          <span>HELLAS FC</span>
+        </div>
+        <div class="top-controls">
+          <input class="search" placeholder="Search" />
+          <select class="lang"><option>EN</option><option>GR</option></select>
+        </div>
+      </div>
+      <!-- Mobile nav toggle (CSS-only) -->
+      <input id="nav-toggle" class="nav-toggle" type="checkbox" aria-hidden="true" />
+      <label for="nav-toggle" class="nav-toggle-label" aria-hidden="true">
+        <span class="hamburger" aria-hidden="true"></span>
+        <span class="sr-only">Toggle navigation</span>
+      </label>
+
+      <nav class="main-nav" role="navigation" aria-label="Main navigation">
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#news">News</a></li>
+          <li><a href="#squad">Squad</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#store">Store</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <div class="hero-bg" id="home">
+      <div class="container layout">
+        <aside class="sidebar">
+          <div class="card calendar">
+            <h4>Gameday Calendar</h4>
+            <div class="calendar-header">
+              <div>
+                <div class="calendar-controls">
+                  <button class="calendar-nav-btn prev" id="calendar-prev" aria-label="Previous month">‹</button>
+                  <div>
+                    <div class="calendar-title" id="calendar-title">March 2026</div>
+                    <div class="calendar-sub">League and cup fixtures</div>
+                  </div>
+                  <button class="calendar-nav-btn next" id="calendar-next" aria-label="Next month">›</button>
+                </div>
+              </div>
+              <div class="calendar-legend">
+                <span class="legend home">Home</span>
+                <span class="legend away">Away</span>
+                <span class="legend cup">Cup</span>
+              </div>
+            </div>
+            <table class="calendar-table" id="calendar-table" role="grid" aria-label="March 2026 fixtures">
+              <thead>
+                <tr>
+                  <th class="calendar-day">Mon</th>
+                  <th class="calendar-day">Tue</th>
+                  <th class="calendar-day">Wed</th>
+                  <th class="calendar-day">Thu</th>
+                  <th class="calendar-day">Fri</th>
+                  <th class="calendar-day">Sat</th>
+                  <th class="calendar-day">Sun</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="calendar-cell is-muted"><span class="calendar-date">26</span></td>
+                  <td class="calendar-cell is-muted"><span class="calendar-date">27</span></td>
+                  <td class="calendar-cell is-muted"><span class="calendar-date">28</span></td>
+                  <td class="calendar-cell is-muted"><span class="calendar-date">29</span></td>
+                  <td class="calendar-cell is-muted"><span class="calendar-date">30</span></td>
+                  <td class="calendar-cell is-muted"><span class="calendar-date">31</span></td>
+                  <td class="calendar-cell"><span class="calendar-date">1</span></td>
+                </tr>
+                <tr>
+                  <td class="calendar-cell"><span class="calendar-date">2</span></td>
+                  <td class="calendar-cell"><span class="calendar-date">3</span><div class="event home" aria-hidden="true"></div></td>
+                  <td class="calendar-cell"><span class="calendar-date">4</span></td>
+                  <td class="calendar-cell"><span class="calendar-date">5</span></td>
+                  <td class="calendar-cell"><span class="calendar-date">6</span><div class="event home" aria-hidden="true"></div></td>
+                  <td class="calendar-cell"><span class="calendar-date">7</span></td>
+                  <td class="calendar-cell"><span class="calendar-date">8</span></td>
+                </tr>
+                <tr>
+                  <td class="calendar-cell"><span class="calendar-date">9</span></td>
+                  <td class="calendar-cell"><span class="calendar-date">10</span><div class="event away" aria-hidden="true"></div></td>
+                  <td class="calendar-cell"><span class="calendar-date">11</span></td>
+                  <td class="calendar-cell"><span class="calendar-date">12</span></td>
+                  <td class="calendar-cell"><span class="calendar-date">13</span></td>
+                  <td class="calendar-cell"><span class="calendar-date">14</span><div class="event cup" aria-hidden="true"></div></td>
+                  <td class="calendar-cell"><span class="calendar-date">15</span></td>
+                </tr>
+                <tr>
+                  <td class="calendar-cell"><span class="calendar-date">16</span></td>
+                  <td class="calendar-cell"><span class="calendar-date">17</span></td>
+                  <td class="calendar-cell"><span class="calendar-date">18</span></td>
+                  <td class="calendar-cell"><span class="calendar-date">19</span></td>
+                  <td class="calendar-cell"><span class="calendar-date">20</span><div class="event home" aria-hidden="true"></div></td>
+                  <td class="calendar-cell"><span class="calendar-date">21</span></td>
+                  <td class="calendar-cell"><span class="calendar-date">22</span></td>
+                </tr>
+                <tr>
+                  <td class="calendar-cell"><span class="calendar-date">23</span></td>
+                  <td class="calendar-cell"><span class="calendar-date">24</span></td>
+                  <td class="calendar-cell"><span class="calendar-date">25</span></td>
+                  <td class="calendar-cell"><span class="calendar-date">26</span></td>
+                  <td class="calendar-cell"><span class="calendar-date">27</span><div class="event away" aria-hidden="true"></div></td>
+                  <td class="calendar-cell"><span class="calendar-date">28</span></td>
+                  <td class="calendar-cell is-muted"><span class="calendar-date">1</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card stats">
+            <h4>Team Stats</h4>
+            <table class="stats-table">
+              <thead>
+                <tr><th>Stat</th><th>Value</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Played</td><td>18</td></tr>
+                <tr><td>Won</td><td>11</td></tr>
+                <tr><td>Drawn</td><td>4</td></tr>
+                <tr><td>Lost</td><td>3</td></tr>
+                <tr><td>Goals For</td><td>34</td></tr>
+                <tr><td>Goals Against</td><td>18</td></tr>
+                <tr><td>Goal Diff</td><td>+16</td></tr>
+                <tr><td>Points</td><td>37</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </aside>
+
+        <main class="main-col">
+          <section class="video-card card">
+            <div class="video-wrap">
+              <iframe src="https://www.youtube.com/embed/1X--u_AfEss" title="Match highlights" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <h1>Video on Gameday</h1>
+            <p class="muted">Featured match highlights and behind-the-scenes footage.</p>
+          </section>
+
+          <section class="hero-callout card">
+            <div class="matchday-meta">Matchday</div>
+            <h2>Hellas FC vs Athenas United</h2>
+            <p class="muted">Saturday, 7:30 PM · Helios Stadium</p>
+            <div class="cta-row">
+              <a class="cta primary" href="#store">Get Tickets</a>
+              <a class="cta secondary" href="#news">Match Preview</a>
+            </div>
+          </section>
+
+          <section class="news card" id="news">
+            <h2>Latest News</h2>
+            <ul class="news-list">
+              <li class="news-item"><time>Feb 15</time> — Season tickets now available at club shop.</li>
+              <li class="news-item"><time>Feb 10</time> — U21s progress to cup quarterfinals.</li>
+              <li class="news-item"><time>Feb 02</time> — New signing: D. Papadopoulos joins the squad.</li>
+            </ul>
+          </section>
+
+          <section class="form card" id="contact">
+            <h3>Register for updates</h3>
+            <form class="register-form" id="register-form" novalidate>
+              <div class="form-field">
+                <label for="form-name">Full Name <span class="required">*</span></label>
+                <input 
+                  id="form-name" 
+                  name="name" 
+                  type="text" 
+                  placeholder="Enter your full name" 
+                  required 
+                  minlength="2"
+                  maxlength="100"
+                  autocomplete="name"
+                />
+                <span class="field-error" id="name-error"></span>
+              </div>
+
+              <div class="form-field">
+                <label for="form-email">Email Address <span class="required">*</span></label>
+                <input 
+                  id="form-email" 
+                  name="email" 
+                  type="email" 
+                  placeholder="you@example.com" 
+                  required
+                  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                  autocomplete="email"
+                />
+                <span class="field-error" id="email-error"></span>
+              </div>
+
+              <div class="form-field">
+                <label for="form-phone">Phone Number</label>
+                <input 
+                  id="form-phone" 
+                  name="phone" 
+                  type="tel" 
+                  placeholder="+30 123 456 7890" 
+                  pattern="[\d\s\+\-\(\)]{10,20}"
+                  autocomplete="tel"
+                />
+                <span class="field-error" id="phone-error"></span>
+              </div>
+
+              <div class="form-field">
+                <label for="form-message">Message</label>
+                <textarea 
+                  id="form-message" 
+                  name="message" 
+                  rows="3" 
+                  placeholder="Tell us how we can help you (optional)"
+                  maxlength="500"
+                ></textarea>
+                <span class="field-hint"><span id="char-count">0</span>/500 characters</span>
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="submit-btn">
+                  <span class="btn-text">Register</span>
+                  <span class="btn-spinner" aria-hidden="true"></span>
+                </button>
+              </div>
+
+              <div class="form-message" id="form-message-box" role="alert"></div>
+            </form>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <section class="players" id="squad">
+      <div class="container">
+        <h2 class="section-title">The Squad</h2>
+        <div class="players-grid">
+          <article class="player-card card">
+            <img class="player-photo" src="resources/players/player1.svg" alt="Player 1" />
+            <div class="player-info">
+              <div class="player-number">1</div>
+              <h3 class="player-name">Giorgos K.</h3>
+              <div class="badges">
+                <div class="badge">Goalie</div>
+                <div class="badge">28</div>
+                <div class="badge">Athens</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="player-card card">
+            <img class="player-photo" src="resources/players/player2.svg" alt="Player 2" />
+            <div class="player-info">
+              <div class="player-number">4</div>
+              <h3 class="player-name">Dimitris P.</h3>
+              <div class="badges">
+                <div class="badge">Defender</div>
+                <div class="badge">25</div>
+                <div class="badge">Thessaloniki</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="player-card card">
+            <img class="player-photo" src="resources/players/player3.svg" alt="Player 3" />
+            <div class="player-info">
+              <div class="player-number">9</div>
+              <h3 class="player-name">Alexis M.</h3>
+              <div class="badges">
+                <div class="badge">Forward</div>
+                <div class="badge">22</div>
+                <div class="badge">Patras</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="player-card card">
+            <img class="player-photo" src="resources/players/player4.svg" alt="Player 4" />
+            <div class="player-info">
+              <div class="player-number">7</div>
+              <h3 class="player-name">Nikos S.</h3>
+              <div class="badges">
+                <div class="badge">Midfield</div>
+                <div class="badge">30</div>
+                <div class="badge">Larissa</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="player-card card">
+            <img class="player-photo" src="resources/players/player1.svg" alt="Player 5" />
+            <div class="player-info">
+              <div class="player-number">11</div>
+              <h3 class="player-name">Stavros L.</h3>
+              <div class="badges">
+                <div class="badge">Winger</div>
+                <div class="badge">24</div>
+                <div class="badge">Chania</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="player-card card">
+            <img class="player-photo" src="resources/players/player2.svg" alt="Player 6" />
+            <div class="player-info">
+              <div class="player-number">14</div>
+              <h3 class="player-name">Petros G.</h3>
+              <div class="badges">
+                <div class="badge">Midfield</div>
+                <div class="badge">27</div>
+                <div class="badge">Volos</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="player-card card">
+            <img class="player-photo" src="resources/players/player3.svg" alt="Player 7" />
+            <div class="player-info">
+              <div class="player-number">18</div>
+              <h3 class="player-name">Leonidas T.</h3>
+              <div class="badges">
+                <div class="badge">Defender</div>
+                <div class="badge">29</div>
+                <div class="badge">Kavala</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="player-card card">
+            <img class="player-photo" src="resources/players/player4.svg" alt="Player 8" />
+            <div class="player-info">
+              <div class="player-number">23</div>
+              <h3 class="player-name">Ilias V.</h3>
+              <div class="badges">
+                <div class="badge">Forward</div>
+                <div class="badge">21</div>
+                <div class="badge">Ioannina</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="player-card card">
+            <img class="player-photo" src="resources/players/player2.svg" alt="Player 9" />
+            <div class="player-info">
+              <div class="player-number">31</div>
+              <h3 class="player-name">Manos R.</h3>
+              <div class="badges">
+                <div class="badge">Goalie</div>
+                <div class="badge">26</div>
+                <div class="badge">Heraklion</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="player-card card" aria-hidden="true">
+            <img class="player-photo" src="resources/players/player1.svg" alt="Player 1" />
+            <div class="player-info">
+              <div class="player-number">1</div>
+              <h3 class="player-name">Giorgos K.</h3>
+              <div class="badges">
+                <div class="badge">Goalie</div>
+                <div class="badge">28</div>
+                <div class="badge">Athens</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="player-card card" aria-hidden="true">
+            <img class="player-photo" src="resources/players/player2.svg" alt="Player 2" />
+            <div class="player-info">
+              <div class="player-number">4</div>
+              <h3 class="player-name">Dimitris P.</h3>
+              <div class="badges">
+                <div class="badge">Defender</div>
+                <div class="badge">25</div>
+                <div class="badge">Thessaloniki</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="player-card card" aria-hidden="true">
+            <img class="player-photo" src="resources/players/player3.svg" alt="Player 3" />
+            <div class="player-info">
+              <div class="player-number">9</div>
+              <h3 class="player-name">Alexis M.</h3>
+              <div class="badges">
+                <div class="badge">Forward</div>
+                <div class="badge">22</div>
+                <div class="badge">Patras</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="player-card card" aria-hidden="true">
+            <img class="player-photo" src="resources/players/player4.svg" alt="Player 4" />
+            <div class="player-info">
+              <div class="player-number">7</div>
+              <h3 class="player-name">Nikos S.</h3>
+              <div class="badges">
+                <div class="badge">Midfield</div>
+                <div class="badge">30</div>
+                <div class="badge">Larissa</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="player-card card" aria-hidden="true">
+            <img class="player-photo" src="resources/players/player1.svg" alt="Player 5" />
+            <div class="player-info">
+              <div class="player-number">11</div>
+              <h3 class="player-name">Stavros L.</h3>
+              <div class="badges">
+                <div class="badge">Winger</div>
+                <div class="badge">24</div>
+                <div class="badge">Chania</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="player-card card" aria-hidden="true">
+            <img class="player-photo" src="resources/players/player2.svg" alt="Player 6" />
+            <div class="player-info">
+              <div class="player-number">14</div>
+              <h3 class="player-name">Petros G.</h3>
+              <div class="badges">
+                <div class="badge">Midfield</div>
+                <div class="badge">27</div>
+                <div class="badge">Volos</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="player-card card" aria-hidden="true">
+            <img class="player-photo" src="resources/players/player3.svg" alt="Player 7" />
+            <div class="player-info">
+              <div class="player-number">18</div>
+              <h3 class="player-name">Leonidas T.</h3>
+              <div class="badges">
+                <div class="badge">Defender</div>
+                <div class="badge">29</div>
+                <div class="badge">Kavala</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="player-card card" aria-hidden="true">
+            <img class="player-photo" src="resources/players/player4.svg" alt="Player 8" />
+            <div class="player-info">
+              <div class="player-number">23</div>
+              <h3 class="player-name">Ilias V.</h3>
+              <div class="badges">
+                <div class="badge">Forward</div>
+                <div class="badge">21</div>
+                <div class="badge">Ioannina</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="player-card card" aria-hidden="true">
+            <img class="player-photo" src="resources/players/player2.svg" alt="Player 9" />
+            <div class="player-info">
+              <div class="player-number">31</div>
+              <h3 class="player-name">Manos R.</h3>
+              <div class="badges">
+                <div class="badge">Goalie</div>
+                <div class="badge">26</div>
+                <div class="badge">Heraklion</div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="sponsors" id="store">
+      <div class="container">
+        <h2 class="section-title">Sponsors</h2>
+        <div class="sponsors-carousel card">
+          <button class="carousel-btn prev" aria-label="Previous sponsor">‹</button>
+          <div class="sponsors-row" id="sponsors-row">
+            <div class="sponsor"><img src="resources/sponsors/sponsor1.svg" alt="Sponsor 1"/></div>
+            <div class="sponsor"><img src="resources/sponsors/sponsor2.svg" alt="Sponsor 2"/></div>
+            <div class="sponsor"><img src="resources/sponsors/sponsor3.svg" alt="Sponsor 3"/></div>
+            <div class="sponsor"><img src="resources/sponsors/sponsor4.svg" alt="Sponsor 4"/></div>
+            <div class="sponsor"><img src="resources/sponsors/sponsor5.svg" alt="Sponsor 5"/></div>
+          </div>
+          <button class="carousel-btn next" aria-label="Next sponsor">›</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="legal" id="privacy">
+      <div class="container card">
+        <h3>Privacy Policy</h3>
+        <p class="muted">Placeholder for privacy policy details.</p>
+      </div>
+    </section>
+
+    <section class="legal" id="terms">
+      <div class="container card">
+        <h3>Terms of Service</h3>
+        <p class="muted">Placeholder for terms and conditions.</p>
+      </div>
+    </section>
+
+    <footer class="site-footer" id="contact">
+      <div class="container footer-inner">
+        <div>© Copyright</div>
+        <div class="footer-center">Footer</div>
+        <div class="footer-links">
+          <a href="#privacy">Privacy</a>
+          <span>·</span>
+          <a href="#terms">Terms</a>
+        </div>
+      </div>
+    </footer>
+    <script src="resources/scripts.js"></script>
+  </body>
+</html>
