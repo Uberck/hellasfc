@@ -1,0 +1,12 @@
+# Python bytecode/cache
+__pycache__/
+*.py[cod]
+
+# Local logs
+*.log
+
+# Local design exports and scratch assets
+untracked/
+
+# macOS metadata
+.DS_Store
