@@ -6,6 +6,141 @@ document.querySelectorAll('.main-nav a').forEach(function (a) {
   });
 });
 
+// Scroll-to-top button behavior
+(function () {
+  var scrollTopBtn = document.getElementById('scroll-top-btn');
+  if (!scrollTopBtn) return;
+
+  var showThreshold = 280;
+
+  function toggleVisibility() {
+    if (window.scrollY > showThreshold) {
+      scrollTopBtn.classList.add('is-visible');
+      return;
+    }
+    scrollTopBtn.classList.remove('is-visible');
+  }
+
+  scrollTopBtn.addEventListener('click', function () {
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+  });
+
+  window.addEventListener('scroll', toggleVisibility, { passive: true });
+  toggleVisibility();
+})();
+
+// Match video mode: live stream during match window, highlights otherwise
+(function () {
+  var section = document.getElementById('match-video');
+  if (!section) return;
+
+  var iframe = document.getElementById('match-video-iframe');
+  if (!iframe) return;
+
+  var statusText = section.querySelector('.status-text');
+  var heading = document.getElementById('video-heading');
+  var description = document.getElementById('video-description');
+  var meta = document.getElementById('video-meta');
+
+  var highlightVideoId = (section.getAttribute('data-highlight-video-id') || '').trim();
+  var liveChannelId = (section.getAttribute('data-live-channel-id') || '').trim();
+  var liveStart = parseDate(section.getAttribute('data-live-start'));
+  var liveEnd = parseDate(section.getAttribute('data-live-end'));
+  var forceLive = (section.getAttribute('data-force-live') || '').toLowerCase() === 'true';
+
+  var highlightEmbed = highlightVideoId ? buildHighlightEmbed(highlightVideoId) : iframe.getAttribute('src');
+  var liveEmbed = isValidChannelId(liveChannelId) ? buildLiveEmbed(liveChannelId) : '';
+  var activeMode = '';
+
+  function parseDate(value) {
+    if (!value) return null;
+    var date = new Date(value);
+    return isNaN(date.getTime()) ? null : date;
+  }
+
+  function isValidChannelId(value) {
+    return /^UC[a-zA-Z0-9_-]{22}$/.test(value);
+  }
+
+  function buildHighlightEmbed(videoId) {
+    return 'https://www.youtube.com/embed/' + encodeURIComponent(videoId) + '?rel=0&modestbranding=1';
+  }
+
+  function buildLiveEmbed(channelId) {
+    return 'https://www.youtube.com/embed/live_stream?channel=' + encodeURIComponent(channelId) + '&rel=0&modestbranding=1';
+  }
+
+  function shouldUseLiveMode() {
+    if (!liveEmbed) return false;
+    if (forceLive) return true;
+    if (!liveStart || !liveEnd) return false;
+    var now = new Date();
+    return now >= liveStart && now <= liveEnd;
+  }
+
+  function updateMetaText(isLive) {
+    if (!meta) return;
+
+    if (!liveEmbed) {
+      meta.textContent = 'Live mode is ready. Add your YouTube channel ID to this section to activate auto switching.';
+      return;
+    }
+
+    if (forceLive) {
+      meta.textContent = 'Live mode is manually forced on. Set data-force-live to false to return to schedule mode.';
+      return;
+    }
+
+    if (isLive && liveEnd) {
+      meta.textContent = 'Live now. Stream window ends at ' + liveEnd.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + '.';
+      return;
+    }
+
+    if (liveStart && liveEnd) {
+      meta.textContent = 'Live window: ' + liveStart.toLocaleString() + ' - ' + liveEnd.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + '.';
+      return;
+    }
+
+    meta.textContent = 'No active live window. Showing highlights.';
+  }
+
+  function applyMode(mode) {
+    if (activeMode === mode) return;
+    activeMode = mode;
+
+    if (mode === 'live') {
+      section.classList.add('is-live');
+      if (statusText) statusText.textContent = 'Live Now';
+      if (heading) heading.textContent = 'Live Now: Hellas FC Matchday';
+      if (description) description.textContent = 'Watch the game live from Helios Stadium.';
+      if (iframe.getAttribute('src') !== liveEmbed) {
+        iframe.setAttribute('src', liveEmbed);
+      }
+      iframe.setAttribute('title', 'Live match stream');
+      updateMetaText(true);
+      return;
+    }
+
+    section.classList.remove('is-live');
+    if (statusText) statusText.textContent = 'Highlights';
+    if (heading) heading.textContent = 'Video on Gameday';
+    if (description) description.textContent = 'Featured match highlights and behind-the-scenes footage.';
+    if (iframe.getAttribute('src') !== highlightEmbed) {
+      iframe.setAttribute('src', highlightEmbed);
+    }
+    iframe.setAttribute('title', 'Match highlights');
+    updateMetaText(false);
+  }
+
+  function refreshMode() {
+    applyMode(shouldUseLiveMode() ? 'live' : 'highlights');
+  }
+
+  refreshMode();
+  setInterval(refreshMode, 60000);
+})();
+
 // Simple sponsors carousel controls
 (function (){
   var row = document.getElementById('sponsors-row');
@@ -108,7 +243,7 @@ document.querySelectorAll('.main-nav a').forEach(function (a) {
       fixtures: { 
         5: { type: 'home', opponent: 'Atlas Warriors', time: '7:30 PM' },
         12: { type: 'away', opponent: 'Epimetheus FC', time: '8:00 PM' },
-        19: { type: 'cup', opponent: 'Metis United', time: '6:30 PM' },
+        19: { type: 'cup', opponent: 'Metis United', tsime: '6:30 PM' },
         26: { type: 'home', opponent: 'Leto City', time: '7:30 PM' }
       }
     },
@@ -206,6 +341,8 @@ document.querySelectorAll('.main-nav a').forEach(function (a) {
                               '<div class="tooltip-time">' + fixture.time + '</div>';
             
             cell.classList.add('has-fixture');
+            cell.setAttribute('tabindex', '0');
+            cell.setAttribute('aria-label', matchLabel + ' at ' + fixture.time);
             cell.appendChild(dateSpan);
             cell.appendChild(event);
             cell.appendChild(tooltip);

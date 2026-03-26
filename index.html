@@ -145,12 +145,32 @@
         </aside>
 
         <main class="main-col">
-          <section class="video-card card">
-            <div class="video-wrap">
-              <iframe src="https://www.youtube.com/embed/1X--u_AfEss" title="Match highlights" frameborder="0" allowfullscreen></iframe>
+          <section
+            class="video-card card"
+            id="match-video"
+            data-highlight-video-id="1X--u_AfEss"
+            data-live-channel-id=""
+            data-live-start="2026-03-15T19:30:00+02:00"
+            data-live-end="2026-03-15T21:45:00+02:00"
+            data-force-live="false"
+          >
+            <div class="video-status" id="video-status" role="status" aria-live="polite">
+              <span class="status-dot" aria-hidden="true"></span>
+              <span class="status-text">Highlights</span>
             </div>
-            <h1>Video on Gameday</h1>
-            <p class="muted">Featured match highlights and behind-the-scenes footage.</p>
+            <div class="video-wrap">
+              <iframe
+                id="match-video-iframe"
+                src="https://www.youtube.com/embed/1X--u_AfEss?rel=0&modestbranding=1"
+                title="Match highlights"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <h1 id="video-heading">Video on Gameday</h1>
+            <p class="muted" id="video-description">Featured match highlights and behind-the-scenes footage.</p>
+            <p class="video-meta muted" id="video-meta">Set your YouTube channel ID and kickoff window on this section to enable auto Live Now mode.</p>
           </section>
 
           <section class="hero-callout card">
@@ -490,8 +510,8 @@
         <div class="sponsors-carousel card">
           <button class="carousel-btn prev" aria-label="Previous sponsor">‹</button>
           <div class="sponsors-row" id="sponsors-row">
-            <div class="sponsor"><img src="resources/sponsors/sponsor1.svg" alt="Sponsor 1"/></div>
-            <div class="sponsor"><img src="resources/sponsors/sponsor2.svg" alt="Sponsor 2"/></div>
+            <div class="sponsor"><img src="resources/sponsors/Halkiadakis.png" alt="Sponsor 1"/></div>
+            <div class="sponsor"><img src="resources/sponsors/Honey-dew.png" alt="Sponsor 2"/></div>
             <div class="sponsor"><img src="resources/sponsors/sponsor3.svg" alt="Sponsor 3"/></div>
             <div class="sponsor"><img src="resources/sponsors/sponsor4.svg" alt="Sponsor 4"/></div>
             <div class="sponsor"><img src="resources/sponsors/sponsor5.svg" alt="Sponsor 5"/></div>
@@ -526,6 +546,9 @@
         </div>
       </div>
     </footer>
+    <button class="scroll-top-btn" id="scroll-top-btn" type="button" aria-label="Scroll back to top" title="Back to top">
+      <span aria-hidden="true">&uarr;</span>
+    </button>
     <script src="resources/scripts.js"></script>
   </body>
 </html>
