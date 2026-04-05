@@ -395,9 +395,29 @@ body::before {
 }
 
 .calendar-cell.has-fixture:hover {
-  background: #eef3ff;
-  border-color: rgba(31, 91, 217, 0.25);
+  filter: brightness(0.97);
+  border-color: rgba(11, 16, 32, 0.25);
   z-index: 10;
+}
+
+.calendar-cell.has-fixture .calendar-date {
+  color: #ffffff;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.calendar-cell.fixture-home {
+  background: linear-gradient(145deg, #2d72ff 0%, #1f5bd9 100%);
+  border-color: rgba(31, 91, 217, 0.55);
+}
+
+.calendar-cell.fixture-away {
+  background: linear-gradient(145deg, #f0c75b 0%, #d4a63a 100%);
+  border-color: rgba(166, 134, 41, 0.55);
+}
+
+.calendar-cell.fixture-cup {
+  background: linear-gradient(145deg, #9a6de0 0%, #7a4ac2 100%);
+  border-color: rgba(90, 44, 138, 0.55);
 }
 
 .calendar-cell.is-muted {
@@ -416,26 +436,23 @@ body::before {
   height: 6px;
   margin-top: 2px;
   border-radius: 50%;
-  background: #e7efff;
-  border: 1px solid rgba(31, 91, 217, 0.2);
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.95);
 }
 
 .event.home {
-  background: #e7efff;
-  color: #1f5bd9;
-  border-color: rgba(31, 91, 217, 0.25);
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(255, 255, 255, 0.95);
 }
 
 .event.away {
-  background: #fff8e7;
-  color: #a68629;
-  border-color: rgba(212, 175, 55, 0.25);
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(255, 255, 255, 0.95);
 }
 
 .event.cup {
-  background: #f3ecff;
-  color: #5a2c8a;
-  border-color: rgba(120, 60, 180, 0.25);
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(255, 255, 255, 0.95);
 }
 
 /* Calendar Tooltips */

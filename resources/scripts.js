@@ -286,12 +286,185 @@ document.querySelectorAll('.main-nav a').forEach(function (a) {
     }
   ];
 
+  function getMonthNumber(name) {
+    var monthMap = {
+      january: 0,
+      february: 1,
+      march: 2,
+      april: 3,
+      may: 4,
+      june: 5,
+      july: 6,
+      august: 7,
+      september: 8,
+      october: 9,
+      november: 10,
+      december: 11
+    };
+    return monthMap[name.toLowerCase()];
+  }
+
+  function parseCalendarMonth(label) {
+    var parts = String(label || '').trim().split(/\s+/);
+    if (parts.length < 2) return null;
+
+    var month = getMonthNumber(parts[0]);
+    var year = parseInt(parts[1], 10);
+
+    if (typeof month !== 'number' || isNaN(year)) return null;
+    return { month: month, year: year };
+  }
+
+  function toMonthKey(year, month) {
+    return year * 12 + month;
+  }
+
+  function getInitialMonthIndex() {
+    if (!calendarData.length) return 0;
+
+    var today = new Date();
+    var todayMonth = today.getMonth();
+    var todayYear = today.getFullYear();
+    var todayKey = toMonthKey(todayYear, todayMonth);
+
+    var first = parseCalendarMonth(calendarData[0].name);
+    var last = parseCalendarMonth(calendarData[calendarData.length - 1].name);
+
+    if (first && todayKey < toMonthKey(first.year, first.month)) {
+      return 0;
+    }
+
+    if (last && todayKey > toMonthKey(last.year, last.month)) {
+      return calendarData.length - 1;
+    }
+
+    for (var i = 0; i < calendarData.length; i++) {
+      var parsed = parseCalendarMonth(calendarData[i].name);
+      if (!parsed) continue;
+      if (parsed.month === todayMonth && parsed.year === todayYear) {
+        return i;
+      }
+    }
+
+    return 0;
+  }
+
+  currentMonthIndex = getInitialMonthIndex();
+
   var prevBtn = document.getElementById('calendar-prev');
   var nextBtn = document.getElementById('calendar-next');
   var titleEl = document.getElementById('calendar-title');
   var tableEl = document.getElementById('calendar-table');
+  var newsListEl = document.querySelector('#news .news-list');
 
   if (!prevBtn || !nextBtn || !titleEl || !tableEl) return;
+
+  function startOfWeek(date) {
+    var copy = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    var mondayOffset = (copy.getDay() + 6) % 7;
+    copy.setDate(copy.getDate() - mondayOffset);
+    copy.setHours(0, 0, 0, 0);
+    return copy;
+  }
+
+  function endOfWeek(date) {
+    var end = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    end.setDate(end.getDate() + 6);
+    end.setHours(23, 59, 59, 999);
+    return end;
+  }
+
+  function describeFixture(fixture) {
+    if (fixture.type === 'away') {
+      return fixture.opponent + ' vs Hellas FC';
+    }
+    if (fixture.type === 'cup') {
+      return 'Cup: Hellas FC vs ' + fixture.opponent;
+    }
+    return 'Hellas FC vs ' + fixture.opponent;
+  }
+
+  function getFixtureEntries() {
+    var entries = [];
+
+    for (var i = 0; i < calendarData.length; i++) {
+      var parsed = parseCalendarMonth(calendarData[i].name);
+      if (!parsed) continue;
+
+      var fixtures = calendarData[i].fixtures || {};
+      var days = Object.keys(fixtures);
+
+      for (var j = 0; j < days.length; j++) {
+        var day = parseInt(days[j], 10);
+        var fixture = fixtures[days[j]];
+        if (isNaN(day) || !fixture) continue;
+
+        entries.push({
+          date: new Date(parsed.year, parsed.month, day),
+          fixture: fixture
+        });
+      }
+    }
+
+    entries.sort(function(a, b) {
+      return a.date.getTime() - b.date.getTime();
+    });
+
+    return entries;
+  }
+
+  function createNewsItem(when, text) {
+    var item = document.createElement('li');
+    item.className = 'news-item';
+
+    var time = document.createElement('time');
+    time.dateTime = when.toISOString().slice(0, 10);
+    time.textContent = when.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+
+    item.appendChild(time);
+    item.appendChild(document.createTextNode(' - ' + text));
+    return item;
+  }
+
+  function renderWeeklyNews() {
+    if (!newsListEl) return;
+
+    var now = new Date();
+    var weekStart = startOfWeek(now);
+    var weekEnd = endOfWeek(weekStart);
+    var weekFixtures = getFixtureEntries().filter(function(entry) {
+      return entry.date >= weekStart && entry.date <= weekEnd;
+    });
+
+    newsListEl.innerHTML = '';
+
+    if (!weekFixtures.length) {
+      var noFixtureItem = createNewsItem(
+        now,
+        'Training week in progress. No official match scheduled for this week.'
+      );
+      newsListEl.appendChild(noFixtureItem);
+      return;
+    }
+
+    newsListEl.appendChild(createNewsItem(
+      weekStart,
+      'Weekly fixture focus: ' + weekFixtures.length + ' match' + (weekFixtures.length > 1 ? 'es' : '') + ' this week.'
+    ));
+
+    for (var i = 0; i < weekFixtures.length; i++) {
+      var entry = weekFixtures[i];
+      var fixtureText = describeFixture(entry.fixture);
+      var matchTime = entry.fixture.time || entry.fixture.tsime || 'TBD';
+      var dayDiff = Math.floor((entry.date.getTime() - new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime()) / 86400000);
+      var lead = dayDiff > 0 ? 'Preview' : dayDiff < 0 ? 'Recap' : 'Matchday';
+
+      newsListEl.appendChild(createNewsItem(
+        entry.date,
+        lead + ': ' + fixtureText + ' at ' + matchTime + '.'
+      ));
+    }
+  }
 
   function renderCalendar() {
     var month = calendarData[currentMonthIndex];
@@ -341,6 +514,7 @@ document.querySelectorAll('.main-nav a').forEach(function (a) {
                               '<div class="tooltip-time">' + fixture.time + '</div>';
             
             cell.classList.add('has-fixture');
+            cell.classList.add('fixture-' + fixture.type);
             cell.setAttribute('tabindex', '0');
             cell.setAttribute('aria-label', matchLabel + ' at ' + fixture.time);
             cell.appendChild(dateSpan);
@@ -385,6 +559,7 @@ document.querySelectorAll('.main-nav a').forEach(function (a) {
 
   // Initial render
   renderCalendar();
+  renderWeeklyNews();
 })();
 
 // Form validation and submission
