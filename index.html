@@ -20,14 +20,15 @@
         <div class="top-controls">
           <input class="search" placeholder="Search" />
           <select class="lang"><option>EN</option><option>GR</option></select>
-          <!-- Mobile nav toggle lives here so it stays in flow -->
-          <input id="nav-toggle" class="nav-toggle" type="checkbox" aria-hidden="true" />
           <label for="nav-toggle" class="nav-toggle-label" aria-hidden="true">
             <span class="hamburger" aria-hidden="true"></span>
             <span class="sr-only">Toggle navigation</span>
           </label>
         </div>
       </div>
+
+      <!-- nav-toggle must be a direct sibling of main-nav for the CSS ~ selector to work -->
+      <input id="nav-toggle" class="nav-toggle" type="checkbox" aria-hidden="true" />
 
       <nav class="main-nav" role="navigation" aria-label="Main navigation">
         <ul>
