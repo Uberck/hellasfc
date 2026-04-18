@@ -6,6 +6,22 @@ document.querySelectorAll('.main-nav a').forEach(function (a) {
   });
 });
 
+// Scroll-to-top button
+(function () {
+  var btn = document.getElementById('scroll-top-btn');
+  if (!btn) return;
+  window.addEventListener('scroll', function () {
+    if (window.scrollY > 300) {
+      btn.classList.add('is-visible');
+    } else {
+      btn.classList.remove('is-visible');
+    }
+  }, { passive: true });
+  btn.addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
+
 // Simple sponsors carousel controls
 (function (){
   var row = document.getElementById('sponsors-row');
