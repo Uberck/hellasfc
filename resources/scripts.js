@@ -40,6 +40,8 @@ document.querySelectorAll('.main-nav a').forEach(function (a) {
 // Calendar navigation
 (function() {
   var currentMonthIndex = 0;
+  var calendarStartYear = 2026;
+  var calendarStartMonthIndex = 2;
   var calendarData = [
     // March 2026 (starts on Sunday)
     {
@@ -171,11 +173,22 @@ document.querySelectorAll('.main-nav a').forEach(function (a) {
   var nextBtn = document.getElementById('calendar-next');
   var titleEl = document.getElementById('calendar-title');
   var tableEl = document.getElementById('calendar-table');
+  var today = new Date();
+  var currentDateOffset =
+    (today.getFullYear() - calendarStartYear) * 12 +
+    (today.getMonth() - calendarStartMonthIndex);
 
   if (!prevBtn || !nextBtn || !titleEl || !tableEl) return;
 
+  function syncCalendarToToday() {
+    if (currentDateOffset >= 0 && currentDateOffset < calendarData.length) {
+      currentMonthIndex = currentDateOffset;
+    }
+  }
+
   function renderCalendar() {
     var month = calendarData[currentMonthIndex];
+    var isTodayMonth = currentMonthIndex === currentDateOffset;
     titleEl.textContent = month.name;
     tableEl.setAttribute('aria-label', month.name + ' fixtures');
 
@@ -203,6 +216,9 @@ document.querySelectorAll('.main-nav a').forEach(function (a) {
         } else if (day <= month.daysInMonth) {
           // Current month days
           dateSpan.textContent = day;
+          if (isTodayMonth && day === today.getDate()) {
+            cell.dataset.currentDate = 'true';
+          }
           if (month.fixtures[day]) {
             var fixture = month.fixtures[day];
             var event = document.createElement('div');
@@ -222,6 +238,7 @@ document.querySelectorAll('.main-nav a').forEach(function (a) {
                               '<div class="tooltip-time">' + fixture.time + '</div>';
             
             cell.classList.add('has-fixture');
+            cell.classList.add('fixture-' + fixture.type);
             cell.appendChild(dateSpan);
             cell.appendChild(event);
             cell.appendChild(tooltip);
@@ -241,6 +258,11 @@ document.querySelectorAll('.main-nav a').forEach(function (a) {
         row.appendChild(cell);
       }
       tbody.appendChild(row);
+    }
+
+    var currentDateCell = tbody.querySelector('[data-current-date="true"]');
+    if (currentDateCell && typeof currentDateCell.scrollIntoView === 'function') {
+      currentDateCell.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
     }
 
     // Update button states
@@ -263,6 +285,7 @@ document.querySelectorAll('.main-nav a').forEach(function (a) {
   });
 
   // Initial render
+  syncCalendarToToday();
   renderCalendar();
 })();
 
