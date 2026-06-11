@@ -1378,6 +1378,27 @@ body::before {
     height: 50px;
   }
 
+  .sponsors-carousel {
+    overflow: hidden;
+  }
+
+  .sponsors-carousel .sponsors-row {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    touch-action: pan-x;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+  }
+
+  .sponsors-carousel .sponsors-row::-webkit-scrollbar {
+    display: none;
+  }
+
+  .sponsor {
+    scroll-snap-align: center;
+  }
+
   .carousel-btn {
     width: 38px;
     height: 38px;

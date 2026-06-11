@@ -28,13 +28,50 @@ document.querySelectorAll('.main-nav a').forEach(function (a) {
   var prev = document.querySelector('.carousel-btn.prev');
   var next = document.querySelector('.carousel-btn.next');
   if (!row) return;
-  prev.addEventListener('click', function(){ row.scrollBy({left: -240, behavior:'smooth'}) });
-  next.addEventListener('click', function(){ row.scrollBy({left: 240, behavior:'smooth'}) });
-  // Auto-scroll every 4s
-  var auto = setInterval(function(){ row.scrollBy({left: 240, behavior:'smooth'}) }, 4000);
-  // pause on hover
-  row.addEventListener('mouseover', function(){ clearInterval(auto) });
-  row.addEventListener('mouseleave', function(){ auto = setInterval(function(){ row.scrollBy({left: 240, behavior:'smooth'}) }, 4000) });
+  var auto = null;
+
+  function scrollSponsors(delta) {
+    row.scrollBy({ left: delta, behavior: 'smooth' });
+  }
+
+  function startAutoScroll() {
+    if (auto || row.scrollWidth <= row.clientWidth) return;
+    auto = setInterval(function() {
+      scrollSponsors(240);
+    }, 4000);
+  }
+
+  function stopAutoScroll() {
+    if (!auto) return;
+    clearInterval(auto);
+    auto = null;
+  }
+
+  if (prev) {
+    prev.addEventListener('click', function() {
+      scrollSponsors(-240);
+      startAutoScroll();
+    });
+  }
+
+  if (next) {
+    next.addEventListener('click', function() {
+      scrollSponsors(240);
+      startAutoScroll();
+    });
+  }
+
+  // Pause while the user is interacting with the track, especially on touch screens.
+  row.addEventListener('pointerdown', stopAutoScroll);
+  row.addEventListener('touchstart', stopAutoScroll, { passive: true });
+  row.addEventListener('pointerup', startAutoScroll);
+  row.addEventListener('pointercancel', startAutoScroll);
+  row.addEventListener('touchend', startAutoScroll);
+  row.addEventListener('touchcancel', startAutoScroll);
+  row.addEventListener('mouseenter', stopAutoScroll);
+  row.addEventListener('mouseleave', startAutoScroll);
+
+  startAutoScroll();
 })();
 
 // Calendar navigation
